@@ -1,7 +1,11 @@
 const path = require('path');
 
 module.exports = {
-    entry: './client/client.js',
+    entry: {
+        app: './client/maker.jsx',
+        login: './client/login.jsx',
+    
+    },
     module:{
         rules:[
             {
@@ -20,6 +24,6 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, 'hosted'),
-        filename: 'bundle.js',
+        filename: '[name]bundle.js',
     },
 };
