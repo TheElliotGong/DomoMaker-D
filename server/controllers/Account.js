@@ -3,15 +3,15 @@ const models = require('../models');
 const { Account } = models;
 /**
  * Render the login page.
- * @param {*} req 
- * @param {*} res 
- * @returns 
+ * @param {*} req
+ * @param {*} res
+ * @returns
  */
 const loginPage = (req, res) => res.render('login');
 /**
  * End the session upon a logout.
- * @param {*} req 
- * @param {*} res 
+ * @param {*} req
+ * @param {*} res
  */
 const logout = (req, res) => {
   req.session.destroy();

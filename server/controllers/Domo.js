@@ -16,13 +16,14 @@ const makerPage = (req, res) => res.render('app');
  */
 const makeDomo = async (req, res) => {
   // Check if parameters exist.
-  if (!req.body.name || !req.body.age) {
-    return res.status(400).json({ error: 'RAWR! Both name and age are required' });
+  if (!req.body.name || !req.body.age || !req.body.level) {
+    return res.status(400).json({ error: 'Name, age, and level are required' });
   }
   // Put this new Domo under the account of the user who created it.
   const domoData = {
     name: req.body.name,
     age: req.body.age,
+    level: req.body.level,
     owner: req.session.account._id,
   };
 
@@ -30,7 +31,7 @@ const makeDomo = async (req, res) => {
     // Save the new Domo and redirect to the maker page.
     const newDomo = new Domo(domoData);
     await newDomo.save();
-    return res.status(201).json({ name: newDomo.name, age: newDomo.age });
+    return res.status(201).json({ name: newDomo.name, age: newDomo.age, level: newDomo.level });
   } catch (err) {
     // Catch and throw errors.
     console.log(err);
@@ -42,14 +43,14 @@ const makeDomo = async (req, res) => {
 };
 /**
  * This function gets the domos created by the logged in user.
- * @param {*} req 
- * @param {*} res 
+ * @param {*} req
+ * @param {*} res
  * @returns the domos created by the logged in user.
  */
 const getDomos = async (req, res) => {
   try {
     const query = { owner: req.session.account._id };
-    const docs = await Domo.find(query).select('name age').lean().exec();
+    const docs = await Domo.find(query).select('name age level').lean().exec();
 
     return res.json({ domos: docs });
   } catch (err) {

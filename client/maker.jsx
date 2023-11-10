@@ -12,12 +12,13 @@ const handleDomo = (e) => {
 
     const name = e.target.querySelector('#domoName').value;
     const age = e.target.querySelector('#domoAge').value;
+    const level = e.target.querySelector('#domoLevel').value;
     //Check if form input is empty.
-    if (!name || !age) {
+    if (!name || !age || !level) {
         helper.handleError('All fields are required!');
     }
     //Send post request with data.
-    helper.sendPost(e.target.action, { name, age }, loadDomosFromServer);
+    helper.sendPost(e.target.action, { name, age, level }, loadDomosFromServer);
     return false;
 };
 /**
@@ -32,7 +33,8 @@ const DomoForm = (props) => {
             <input id="domoName" type="text" name="name" placeholder="Domo Name"/>
             <label htmlFor="age">Age: </label>
             <input id="domoAge" type="number" name="age" min = "0"/>
-            
+            <label htmlFor="level">Level: </label>
+            <input id="domoLevel" type="number" name="level" min = "1"/>
             <input className="makeDomoSubmit" type="submit" value="Make Domo"/>
         </form>
     );
@@ -58,6 +60,7 @@ const DomoList = (props) => {
            < img src='/assets/img/domoface.jpeg' alt='domo face' className='domoFace' />
               <h3 className='domoName'>Name: {domo.name}</h3>
                 <h3 className='domoAge'>Age: {domo.age}</h3>
+                <h3 className='domoLevel'>Level: {domo.level}</h3>
         </div>
     })
     //Return the domo list.
