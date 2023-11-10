@@ -10,19 +10,19 @@ const handlePasswordChange = (e) => {
     const pass2 = e.target.querySelector('#pass2').value;
 };
 
-const changePasswordWindow = (props) => {
+const ChangePasswordWindow = (props) => {
     return (
         <form id="changePasswordForm" onSubmit={handlePasswordChange} action='/changePassword' method="POST">
             <label htmlFor="pass">New Password: </label>
             <input id="pass" type="password" name="pass" placeholder="New Password" />
             <label htmlFor="pass">Re-enter New Password: </label>
             <input id="pass2" type="password" name="pass2" placeholder="Re-enter New Password" />
-            <input className="formSubmit" type="submit" value="Sign up" />
+            <input className="formSubmit" type="submit" value="Change Password" />
         </form>);
 };
 
 const init = () => {
-    ReactDOM.render(<changePasswordWindow />, document.querySelector('#content'));
+    ReactDOM.render(<ChangePasswordWindow />, document.querySelector('#content'));
 };
 
 window.onload = init;

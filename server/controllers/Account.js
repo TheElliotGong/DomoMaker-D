@@ -8,6 +8,7 @@ const { Account } = models;
  * @returns
  */
 const loginPage = (req, res) => res.render('login');
+const changePasswordPage  = (req, res) => res.render('changePassword');
 /**
  * End the session upon a logout.
  * @param {*} req
@@ -107,5 +108,6 @@ module.exports = {
   login,
   logout,
   signup,
-  changePassword
+  changePassword,
+  changePasswordPage
 };
