@@ -74,10 +74,38 @@ const signup = async (req, res) => {
     return res.status(500).json({ error: 'An error occurred' });
   }
 };
+const changePassword = async (req, res) => {
+  const pass = `${req.body.pass}`;
+  const pass2 = `${req.body.pass2}`;
+  if(!pass || !pass2)
+  {
+    return res.status(400).json({error: 'All fields are required'});
+  }
+  if(pass !== pass2)
+  {
+    return res.status(400).json({error: 'Passwords do not match'});
+  }
+  try
+  {
+    //Locate account attached to current session, and change password.
+    const newHash = await Account.generateHash(pass);
+    const account = await Account.findById(req.session.account._id);
+    account.password = newHash;
+    await account.save();
+    req.session.account = Account.toAPI(account);
+    return res.json({ redirect: '/maker' });
+  }
+  catch(err)
+  {
+    console.log(err);
+    return res.status(500).json({error: 'An error occurred'});
+  }
+};
 
 module.exports = {
   loginPage,
   login,
   logout,
   signup,
+  changePassword
 };

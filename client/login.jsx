@@ -13,13 +13,12 @@ const handleLogin = (e) => {
     const username = e.target.querySelector('#user').value;
     const pass = e.target.querySelector('#pass').value;
 
-    if(!username || !pass)
-    {
+    if (!username || !pass) {
         helper.handleError('Username or password is empty.');
         return false;
     }
     //Send post request with data.
-    helper.sendPost(e.target.action, {username, pass});
+    helper.sendPost(e.target.action, { username, pass });
     return false;
 };
 /**
@@ -35,21 +34,27 @@ const handleSignup = (e) => {
     const pass = e.target.querySelector('#pass').value;
     const pass2 = e.target.querySelector('#pass2').value;
     //Make sure all fields are filled in.
-    if(!username || !pass || !pass2)
-    {
+    if (!username || !pass || !pass2) {
         helper.handleError('All fields are required.');
         return false;
     }
     //Make sure passwords match.
-    if(pass !== pass2)
-    {
+    if (pass !== pass2) {
         helper.handleError('Passwords do not match.');
         return false;
     }
     //Send post request with data.
-    helper.sendPost(e.target.action, {username, pass, pass2});
+    helper.sendPost(e.target.action, { username, pass, pass2 });
 
     return false;
+};
+
+const handlePasswordChange = (e) => {
+    e.preventDefault();
+    helper.hideError();
+
+    const pass = e.target.querySelector('#pass').value;
+    const pass2 = e.target.querySelector('#pass2').value;
 };
 /**
  * This function creates the login form for the domo maker.
@@ -57,13 +62,13 @@ const handleSignup = (e) => {
  * @returns 
  */
 const LoginWindow = (props) => {
-    return(
-        <form id = "loginForm" name = "loginForm" onSubmit={handleLogin} action = "/login" method = "POST" className = "mainForm">
+    return (
+        <form id="loginForm" name="loginForm" onSubmit={handleLogin} action="/login" method="POST" className="mainForm">
             <label htmlFor='username'>Username: </label>
             <input id="user" type="text" name="username" placeholder="Username" />
             <label htmlFor="pass">Password: </label>
             <input id="pass" type="password" name="pass" placeholder="Password" />
-            <input className="formSubmit" type="submit" value="Sign in"/>
+            <input className="formSubmit" type="submit" value="Sign in" />
         </form>
     );
 };
@@ -73,17 +78,30 @@ const LoginWindow = (props) => {
  * @returns 
  */
 const SignupWindow = (props) => {
-    return(
-        <form id = "signupForm" onSubmit={handleSignup} action = "/signup" method = "POST" className='mainForm'>
+    return (
+        <form id="signupForm" onSubmit={handleSignup} action="/signup" method="POST" className='mainForm'>
             <label htmlFor='username'>Username: </label>
             <input id="user" type="text" name="username" placeholder="Username" />
             <label htmlFor="pass">Password: </label>
             <input id="pass" type="password" name="pass" placeholder="Password" />
-            <label htmlFor="pass">Password: </label>
+            <label htmlFor="pass">Re-enter Password: </label>
             <input id="pass2" type="password" name="pass2" placeholder="Re-enter Password" />
-            <input className="formSubmit" type="submit" value="Sign up"/>
+            <input className="formSubmit" type="submit" value="Sign up" />
         </form>
     );
+};
+
+const changePasswordWindow = (props) => {
+    return (
+        <form id="changePasswordForm" onSubmit={handlePasswordChange} action='/changePassword' method="POST">
+            <label htmlFor="pass">Old Password: </label>
+            <input id="pass" type="password" name="pass" placeholder="New Password" />
+            <label htmlFor="pass">New Password: </label>
+            <input id="pass" type="password" name="pass" placeholder="New Password" />
+            <label htmlFor="pass">Re-enter New Password: </label>
+            <input id="pass2" type="password" name="pass2" placeholder="Re-enter New Password" />
+            <input className="formSubmit" type="submit" value="Sign up" />
+        </form>);
 };
 /**
  * This function sets up everything related to account creation and login.
@@ -92,8 +110,8 @@ const init = () => {
     const loginButton = document.getElementById('loginButton');
     const signupButton = document.getElementById('signupButton');
 
-    loginButton.addEventListener(   'click', (e) => {e.preventDefault(); ReactDOM.render(<LoginWindow />, document.querySelector('#content'));});
-    signupButton.addEventListener(  'click', (e) => {e.preventDefault(); ReactDOM.render(<SignupWindow />, document.querySelector('#content'));});
+    loginButton.addEventListener('click', (e) => { e.preventDefault(); ReactDOM.render(<LoginWindow />, document.querySelector('#content')); });
+    signupButton.addEventListener('click', (e) => { e.preventDefault(); ReactDOM.render(<SignupWindow />, document.querySelector('#content')); });
 
     ReactDOM.render(<LoginWindow />, document.querySelector('#content'));
 };

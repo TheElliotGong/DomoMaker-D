@@ -41,6 +41,7 @@ const makeDomo = async (req, res) => {
     return res.status(500).json({ error: 'An error occured' });
   }
 };
+
 /**
  * This function gets the domos created by the logged in user.
  * @param {*} req
