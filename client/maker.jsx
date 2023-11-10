@@ -1,21 +1,30 @@
 const helper = require('./helper.js');
 const React = require('react');
 const ReactDOM = require('react-dom');
-
+/**
+ * This function handles the creation of a domo.
+ * @param {*} e 
+ * @returns 
+ */
 const handleDomo = (e) => {
     e.preventDefault();
     helper.hideError();
 
     const name = e.target.querySelector('#domoName').value;
     const age = e.target.querySelector('#domoAge').value;
-
+    //Check if form input is empty.
     if (!name || !age) {
         helper.handleError('All fields are required!');
     }
+    //Send post request with data.
     helper.sendPost(e.target.action, { name, age }, loadDomosFromServer);
     return false;
 };
-
+/**
+ * Creates a domo maker form with a name and age input.
+ * @param {*} props 
+ * @returns the html elements for the form.
+ */
 const DomoForm = (props) => {
     return(
         <form id = "domoForm" onSubmit = {handleDomo} action="/maker" method="POST" className = "domoForm">
@@ -28,8 +37,13 @@ const DomoForm = (props) => {
         </form>
     );
 };
-
+/**
+ * Returns the list of created domos if possible.
+ * @param {*} props 
+ * @returns the html elements for the form
+ */
 const DomoList = (props) => {
+    //Check if domos exist.
     if(props.domos.length === 0)
     {
         return(
@@ -38,6 +52,7 @@ const DomoList = (props) => {
             </div>
         );
     }
+    //Otherwise, create html elements from each domo object.
     const domoNodes = props.domos.map(domo => {
         return <div key={domo._id} className='domo'>
            < img src='/assets/img/domoface.jpeg' alt='domo face' className='domoFace' />
@@ -45,23 +60,27 @@ const DomoList = (props) => {
                 <h3 className='domoAge'>Age: {domo.age}</h3>
         </div>
     })
-
+    //Return the domo list.
     return(
         <div className="domoList">
             {domoNodes}
         </div>
     );
 };
-
+/**
+ * Loads the domos from the server.
+ */
 const loadDomosFromServer = async () => {
     const response = await fetch('/getDomos');
     const data = await response.json();
-
+    //Render the domos under the selected html element.
     ReactDOM.render(
         <DomoList domos={data.domos} />, document.querySelector("#domos")
     );
 };
-
+/**
+ * Initializes the page.
+ */
 const init = () => {
     ReactDOM.render(
         <DomoForm />, document.querySelector("#makeDomo")
