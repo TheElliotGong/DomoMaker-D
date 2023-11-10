@@ -81,6 +81,8 @@ const loadDomosFromServer = async () => {
         <DomoList domos={data.domos} />, document.querySelector("#domos")
     );
 };
+
+
 /**
  * Initializes the page.
  */
@@ -88,7 +90,7 @@ const init = () => {
     ReactDOM.render(
         <DomoForm />, document.querySelector("#makeDomo")
     );
-
+    
     ReactDOM.render(
         <DomoList domos={[]} />, document.querySelector("#domos")
     );
