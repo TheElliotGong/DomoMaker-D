@@ -3,6 +3,7 @@ const _ = require('underscore');
 
 const setName = (name) => _.escape(name).trim();
 // Set up Domo model and appropriate parameters.
+// Domos now have a level attribute.
 const DomoSchema = new mongoose.Schema({
   name: {
     type: String,

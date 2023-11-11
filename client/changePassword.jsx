@@ -1,14 +1,19 @@
+//import helper files.
 const helper = require('./helper.js');
 const React = require('react');
 const ReactDOM = require('react-dom');
-
+/**
+ * This function handles changing the password for logged in user.
+ * @param {*} e 
+ * @returns 
+ */
 const handlePasswordChange = (e) => {
     e.preventDefault();
     helper.hideError();
 
     const pass = e.target.querySelector('#pass').value;
     const pass2 = e.target.querySelector('#pass2').value;
-    
+    //Ensure all fields are filled in and new password is valid.
     if(!pass || !pass2)
     {
         helper.handleError('All fields are required.');
@@ -21,7 +26,11 @@ const handlePasswordChange = (e) => {
     helper.sendPost(e.target.action, {pass, pass2 });
     return false;
 };
-
+/**
+ * Create the change password form
+ * @param {*} props 
+ * @returns 
+ */
 const ChangePasswordWindow = (props) => {
     return (
         <form id="changePasswordForm" onSubmit={handlePasswordChange} action='/changePassword' method="POST">
@@ -32,7 +41,9 @@ const ChangePasswordWindow = (props) => {
             <input className="formSubmit" type="submit" value="Change Password" />
         </form>);
 };
-
+/**
+ * Add react component to page.
+ */
 const init = () => {
     ReactDOM.render(<ChangePasswordWindow />, document.querySelector('#content'));
 };

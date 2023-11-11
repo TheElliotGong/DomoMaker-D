@@ -8,7 +8,14 @@ const { Account } = models;
  * @returns
  */
 const loginPage = (req, res) => res.render('login');
-const changePasswordPage  = (req, res) => res.render('changePassword');
+
+/**
+ * Render the change password page.
+ * @param {*} req
+ * @param {*} res
+ * @returns
+ */
+const changePasswordPage = (req, res) => res.render('changePassword');
 /**
  * End the session upon a logout.
  * @param {*} req
@@ -75,39 +82,42 @@ const signup = async (req, res) => {
     return res.status(500).json({ error: 'An error occurred' });
   }
 };
+/**
+ * This function changes the password of the current user.
+ * @param {*} req
+ * @param {*} res
+ * @returns
+ */
 const changePassword = async (req, res) => {
   const pass = `${req.body.pass}`;
   const pass2 = `${req.body.pass2}`;
-  if(!pass || !pass2)
-  {
-    return res.status(400).json({error: 'All fields are required'});
+  // Validate new password/input.
+  if (!pass || !pass2) {
+    return res.status(400).json({ error: 'All fields are required' });
   }
-  if(pass !== pass2)
-  {
-    return res.status(400).json({error: 'Passwords do not match'});
+  if (pass !== pass2) {
+    return res.status(400).json({ error: 'Passwords do not match' });
   }
-  try
-  {
-    //Locate account attached to current session, and change password.
+  try {
+    // Locate account attached to current session, and change password.
     const newHash = await Account.generateHash(pass);
     const account = await Account.findById(req.session.account._id);
     account.password = newHash;
+    // Save account and redirect to maker page.
     await account.save();
     req.session.account = Account.toAPI(account);
     return res.json({ redirect: '/maker' });
-  }
-  catch(err)
-  {
+  } catch (err) {
     console.log(err);
-    return res.status(500).json({error: 'An error occurred'});
+    return res.status(500).json({ error: 'An error occurred' });
   }
 };
-
+//Export functions
 module.exports = {
   loginPage,
   login,
   logout,
   signup,
   changePassword,
-  changePasswordPage
+  changePasswordPage,
 };
