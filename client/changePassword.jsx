@@ -8,6 +8,18 @@ const handlePasswordChange = (e) => {
 
     const pass = e.target.querySelector('#pass').value;
     const pass2 = e.target.querySelector('#pass2').value;
+    
+    if(!pass || !pass2)
+    {
+        helper.handleError('All fields are required.');
+        return false;
+    }
+    if (pass !== pass2) {
+        helper.handleError('Passwords do not match.');
+        return false;
+    }
+    helper.sendPost(e.target.action, {pass, pass2 });
+    return false;
 };
 
 const ChangePasswordWindow = (props) => {
