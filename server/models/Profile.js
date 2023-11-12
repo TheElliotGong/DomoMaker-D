@@ -11,8 +11,20 @@ const ProfileSchema = new mongoose.Schema({
         set: setName,
       },
     favorites: {
-        type: Array,
+        type: [String],
+        required: true,  
+    },
+    owner: {
+        type: mongoose.Schema.ObjectId,
         required: true,
-        
-    }
+        ref: 'Account',
+      },
 });
+
+ProfileSchema.statics.toAPI = (doc) => ({
+   name: doc.name,
+    favorites: doc.favorites,
+  });
+
+const ProfileModel = mongoose.model('Profile', ProfileSchema);
+module.exports = ProfileModel;
