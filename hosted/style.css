@@ -100,7 +100,6 @@ nav:nth-child(1) {
 
 .mainForm label {
     display: inline-block;
-    width: 100px;
     margin-right: 10px;
     text-align: right;
     font-size: 1.2em;
@@ -280,13 +279,13 @@ h3.domoLevel {
     width: 340px;
     background-color: #202020;
 }
-#formWindow
+.formWindow
 {
     width: 90%;
     height: 90%;
     margin: auto;
 }
-#formWindow h1
+.formWindow h1
 {
     color: white;
     font-size: 30;
