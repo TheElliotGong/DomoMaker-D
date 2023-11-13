@@ -64,10 +64,11 @@ const LoginWindow = (props) => {
             <input id="user" type="text" name="username" placeholder="Username" />
 
             <input id="pass" type="password" name="pass" placeholder="Password" />
-            <input className="formSubmit" id = "loginButton" type="submit" value="Sign In" />
+            <input className="formSubmit" type="submit" value="Sign In" />
 
         </form> 
-        <a id="signupButton" href="/signup">Sign up</a>
+        <a id="signupButton" href="/signup" onClick={(e) => {e.preventDefault();
+         ReactDOM.render(<SignupWindow />, document.querySelector('#content')); }}>Sign up</a>
         </div>
         
         
@@ -79,6 +80,7 @@ const LoginWindow = (props) => {
  * @returns 
  */
 const SignupWindow = (props) => {
+    
     return (
         <div className = "formWindow">
            <form id="signupForm" onSubmit={handleSignup} action="/signup" method="POST" className='mainForm'>
@@ -91,7 +93,7 @@ const SignupWindow = (props) => {
             <input id="pass2" type="password" name="pass2" placeholder="Re-enter Password" />
             <input className="formSubmit" type="submit" value="Sign Up" />
         </form> 
-        <a id="loginButton" href="/login">Already have an account? <strong>Log In</strong></a>
+        <a id="loginButton" href="/login" onClick={(e) => {e.preventDefault(); ReactDOM.render(<LoginWindow />, document.querySelector('#content'));}}>Already have an account? <strong>Log In</strong></a>
         </div>
         
         
@@ -99,20 +101,4 @@ const SignupWindow = (props) => {
 };
 
 
-/**
- * This function sets up everything related to account creation and login.
- */
-const init = () => {
-    
-    ReactDOM.render(<LoginWindow />, document.querySelector('#content'));
-    
-    const loginButton = document.getElementById('loginButton');
-    const signupButton = document.getElementById('signupButton');
-
-    loginButton.addEventListener('click', (e) => { e.preventDefault(); ReactDOM.render(<LoginWindow />, document.querySelector('#content')); });
-    signupButton.addEventListener('click', (e) => { e.preventDefault(); ReactDOM.render(<SignupWindow />, document.querySelector('#content')); });
-
-
-};
-
-window.onload = init;
+window.onload = () => {ReactDOM.render(<LoginWindow />, document.querySelector('#content'));};
