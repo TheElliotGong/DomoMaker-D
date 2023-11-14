@@ -57,13 +57,21 @@ const handleSignup = (e) => {
  */
 const LoginWindow = (props) => {
     return (
-        <form id="loginForm" name="loginForm" onSubmit={handleLogin} action="/login" method="POST" className="mainForm">
-            <label htmlFor='username'>Username: </label>
+        <div className = "formWindow">
+            
+           <form id="loginForm" name="loginForm" onSubmit={handleLogin} action="/login" method="POST" className="mainForm">
+            <h1>Sign In</h1>
             <input id="user" type="text" name="username" placeholder="Username" />
-            <label htmlFor="pass">Password: </label>
+
             <input id="pass" type="password" name="pass" placeholder="Password" />
-            <input className="formSubmit" type="submit" value="Sign in" />
-        </form>
+            <input className="formSubmit" type="submit" value="Sign In" />
+
+        </form> 
+        <a id="signupButton" href="/signup" onClick={(e) => {e.preventDefault();
+         ReactDOM.render(<SignupWindow />, document.querySelector('#content')); }}>Sign up</a>
+        </div>
+        
+        
     );
 };
 /**
@@ -72,31 +80,25 @@ const LoginWindow = (props) => {
  * @returns 
  */
 const SignupWindow = (props) => {
+    
     return (
-        <form id="signupForm" onSubmit={handleSignup} action="/signup" method="POST" className='mainForm'>
+        <div className = "formWindow">
+           <form id="signupForm" onSubmit={handleSignup} action="/signup" method="POST" className='mainForm'>
+            <h1>Sign Up</h1>
             <label htmlFor='username'>Username: </label>
             <input id="user" type="text" name="username" placeholder="Username" />
             <label htmlFor="pass">Password: </label>
             <input id="pass" type="password" name="pass" placeholder="Password" />
             <label htmlFor="pass">Re-enter Password: </label>
             <input id="pass2" type="password" name="pass2" placeholder="Re-enter Password" />
-            <input className="formSubmit" type="submit" value="Sign up" />
-        </form>
+            <input className="formSubmit" type="submit" value="Sign Up" />
+        </form> 
+        <a id="loginButton" href="/login" onClick={(e) => {e.preventDefault(); ReactDOM.render(<LoginWindow />, document.querySelector('#content'));}}>Already have an account? <strong>Log In</strong></a>
+        </div>
+        
+        
     );
 };
 
 
-/**
- * This function sets up everything related to account creation and login.
- */
-const init = () => {
-    const loginButton = document.getElementById('loginButton');
-    const signupButton = document.getElementById('signupButton');
-
-    loginButton.addEventListener('click', (e) => { e.preventDefault(); ReactDOM.render(<LoginWindow />, document.querySelector('#content')); });
-    signupButton.addEventListener('click', (e) => { e.preventDefault(); ReactDOM.render(<SignupWindow />, document.querySelector('#content')); });
-
-    ReactDOM.render(<LoginWindow />, document.querySelector('#content'));
-};
-
-window.onload = init;
+window.onload = () => {ReactDOM.render(<LoginWindow />, document.querySelector('#content'));};
