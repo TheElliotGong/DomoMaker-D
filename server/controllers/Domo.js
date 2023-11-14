@@ -1,5 +1,5 @@
 const models = require('../models');
-
+//Import domo model.
 const { Domo } = models;
 /**
  * This function loads the domo maker page along with the domos created by the logged in user.
