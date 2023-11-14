@@ -10,7 +10,7 @@ const ReactDOM = require('react-dom');
 const handlePasswordChange = (e) => {
     e.preventDefault();
     helper.hideError();
-
+    //Get the passwords from the form.
     const pass = e.target.querySelector('#pass').value;
     const pass2 = e.target.querySelector('#pass2').value;
     //Ensure all fields are filled in and new password is valid.
