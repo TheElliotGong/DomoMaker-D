@@ -1,5 +1,5 @@
 const models = require('../models');
-
+//Import Account model.
 const { Account } = models;
 /**
  * Render the login page.
