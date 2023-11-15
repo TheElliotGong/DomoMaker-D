@@ -9,7 +9,7 @@ const { Domo } = models;
  */
 const makerPage = (req, res) => res.render('app');
 /**
- * This function handles the creation of a new Domo.
+ * This function handles the creation of a new Domo object.
  * @param {*} req
  * @param {*} res
  * @returns
