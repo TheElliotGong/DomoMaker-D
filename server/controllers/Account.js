@@ -29,7 +29,7 @@ const logout = (req, res) => {
  * This handles the login process for the Domomaker app.
  * @param {*} req
  * @param {*} res
- * @returns the account page if successful, or an error if unsuccessful.
+ * @returns the account page if successful, or an error message if unsuccessful.
  */
 const login = (req, res) => {
   const username = `${req.body.username}`;
