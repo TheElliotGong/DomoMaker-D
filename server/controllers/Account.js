@@ -1,5 +1,5 @@
 const models = require('../models');
-//Import Account model.
+// Import Account model.
 const { Account } = models;
 /**
  * Render the login page.
@@ -112,7 +112,7 @@ const changePassword = async (req, res) => {
     return res.status(500).json({ error: 'An error occurred' });
   }
 };
-//Export functions
+// Export functions
 module.exports = {
   loginPage,
   login,
